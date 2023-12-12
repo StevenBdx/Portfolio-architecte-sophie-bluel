@@ -186,3 +186,37 @@ footer nav ul {
 	margin: 2em
 }
 
+.filters-container {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+/*mettre une classe */
+button {  
+	display: flex;
+	align-items: center;
+	height: 37px;
+	font-family: 'Syne';
+	font-size: 16px;
+	border: 1px solid #1D6154;
+	border-radius: 20px;
+	color: #1D6154;
+	background-color: white;
+	padding-left: 15px;
+    padding-right: 15px;
+	/* display: none; */
+}
+
+.display-none {
+	display: none;
+}
+
+button:hover {
+	background-color: #1D6154;
+	color: white;
+}
+
+
+
+
+

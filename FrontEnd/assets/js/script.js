@@ -14,30 +14,37 @@ async function getAllCategories() {
 document.addEventListener("DOMContentLoaded", async () => {
     let allCategories = await getAllCategories()
     let allProjects = await getAllProjects()
-    console.log(allCategories)
+    // console.log(allCategories)
     // for (let project of allProjects) {
     //     console.log(project)
     //     createFigure(project.title, project.imageUrl)
 
     // }
-    allProjects.map(function(project){
-        createFigure(project.title, project.imageUrl)
-    })
-    createFilters("Tous")
-    allCategories.map(function(categories){
-        createFilters(categories.name)
-    })
+    
+    createWorks(allProjects,allCategories)
+    
+   
+    
+    
+    
 })
-
-//je creer mes balises et je le lie aux parents/enfants //
-function createFigure(title, pictureSrc) {
+function createWorks(allProjects,allCategories){
+    allProjects.map(function(project){
+        createFigure(project.title, project.imageUrl, project.categoryId)
+    })
+    
+    createFilters(allCategories)
+}
+//je creer mes balises for works et je le lie aux parents/enfants //
+function createFigure(title, pictureSrc, categoryId) {
     let newWorks = document.createElement("figure")
     let newPicture = document.createElement("img")
     let newTitle = document.createElement("figcaption")
     newTitle.innerText = title
     newPicture.src = pictureSrc
     newPicture.setAttribute("alt", title) 
-
+    newWorks.classList.add("works-items")
+    newWorks.dataset.categoryId = categoryId
     newWorks.appendChild(newPicture)
     newWorks.appendChild(newTitle)
 
@@ -46,11 +53,45 @@ function createFigure(title, pictureSrc) {
 
 }
 
-function createFilters(name) {
-let newFilter = document.createElement("button")
+//effacement boutons//
+// document.querySelector(".filters-container").innerHTML = ''
 
-newFilter.innerText = name
 
-let container = document.querySelector(".filters-container")
-container.appendChild(newFilter)
+//generer les bouttons filtres//
+function createFilters(allCategories){
+    let filterContainer = document.querySelector(".filters-container")
+    let filterAll = document.createElement("button")
+    filterAll.innerText = "Tous"
+    filterAll.dataset.categoryId = 0 
+    filterAll.classList.add("button-filter") 
+    filterContainer.appendChild(filterAll)
+    allCategories.forEach((element) => {
+        let filter = document.createElement("button")
+        filter.innerText = element.name
+        filter.dataset.categoryId = element.id
+        filter.classList.add("button-filter")
+        filterContainer.appendChild(filter)
+    });
+    applyFilters()
 }
+
+   
+function applyFilters(){
+    let listFilter = document.querySelectorAll(".button-filter")
+    let works = document.querySelectorAll("works-items")
+    listFilter.forEach((item) => {
+        item.addEventListener("click", ()=>{
+            let filterId = item.dataset.categoryId //recuperation de l'id qui a ete cliker//
+            works.forEach((work) => {
+                let workCategoryId = work.dataset.categoryId
+                if (filterId == workCategoryId){
+                    work.classList.remove("display-none")
+                } else {
+                    work.classList.add("display-none")
+                }
+            })  
+        })
+    })
+
+}
+
