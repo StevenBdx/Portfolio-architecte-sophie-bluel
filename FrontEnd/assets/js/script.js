@@ -14,27 +14,21 @@ async function getAllCategories() {
 document.addEventListener("DOMContentLoaded", async () => {
     let allCategories = await getAllCategories()
     let allProjects = await getAllProjects()
-    // console.log(allCategories)
-    // for (let project of allProjects) {
-    //     console.log(project)
-    //     createFigure(project.title, project.imageUrl)
-
-    // }
+    console.log(allProjects)
     
+    function createWorks(allProjects,allCategories){
+        allProjects.map(function(project){
+            createFigure(project.title, project.imageUrl, project.categoryId)
+        })
+        
+        
+    }
     createWorks(allProjects,allCategories)
-    
-   
-    
-    
-    
-})
-function createWorks(allProjects,allCategories){
-    allProjects.map(function(project){
-        createFigure(project.title, project.imageUrl, project.categoryId)
-    })
-    
     createFilters(allCategories)
-}
+    applyFilters()
+     
+})
+
 //je creer mes balises for works et je le lie aux parents/enfants //
 function createFigure(title, pictureSrc, categoryId) {
     let newWorks = document.createElement("figure")
@@ -53,9 +47,6 @@ function createFigure(title, pictureSrc, categoryId) {
 
 }
 
-//effacement boutons//
-// document.querySelector(".filters-container").innerHTML = ''
-
 
 //generer les bouttons filtres//
 function createFilters(allCategories){
@@ -72,24 +63,24 @@ function createFilters(allCategories){
         filter.classList.add("button-filter")
         filterContainer.appendChild(filter)
     });
-    applyFilters()
+    
 }
 
    
 function applyFilters(){
     let listFilter = document.querySelectorAll(".button-filter")
-    let works = document.querySelectorAll("works-items")
+    let works = document.querySelectorAll(".works-items")
     listFilter.forEach((item) => {
         item.addEventListener("click", ()=>{
             let filterId = item.dataset.categoryId //recuperation de l'id qui a ete cliker//
             works.forEach((work) => {
                 let workCategoryId = work.dataset.categoryId
-                if (filterId == workCategoryId){
+                if (filterId == workCategoryId || filterId == 0){
                     work.classList.remove("display-none")
-                } else {
+                } else {    
                     work.classList.add("display-none")
-                }
-            })  
+                }    
+            })
         })
     })
 

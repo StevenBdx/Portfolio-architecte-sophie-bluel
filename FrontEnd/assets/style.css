@@ -190,6 +190,7 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
+	padding-bottom: 25px;
 }
 /*mettre une classe */
 button {  
