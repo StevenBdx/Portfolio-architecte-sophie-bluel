@@ -14,14 +14,11 @@ async function getAllCategories() {
 document.addEventListener("DOMContentLoaded", async () => {
     let allCategories = await getAllCategories()
     let allProjects = await getAllProjects()
-    // console.log(allProjects)
     
     function createWorks(allProjects,allCategories){
         allProjects.map(function(project){
             createFigure(project.title, project.imageUrl, project.categoryId)
-        })
-        
-        
+        })   
     }
     createWorks(allProjects,allCategories)
     createFilters(allCategories)
