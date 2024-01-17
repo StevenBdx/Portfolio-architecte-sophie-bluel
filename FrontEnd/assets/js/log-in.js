@@ -26,36 +26,20 @@ async function postData(email, password) {
       "password": password
     }),
 
-  });
-  if (response.ok) {
+  })
+  if (response.ok) {//conditions de recuperation des token , et affichage erreur si mauvaise saisie//
     const url = location.protocol + '//' + location.host + '/FrontEnd/index.html'
     location.href = url
     let data = await response.json()
-    console.log(data)
-    localStorage.setItem("userId", data.userId)
-    localStorage.setItem("token", data.token)
+    localStorage.setItem("userId", data.userId)//recup de mes token//
+    localStorage.setItem("token", data.token)//recup de mes token//
   }
   else {
-    let newErrorMessage = document.querySelector(".input-error")
+    let newErrorMessage = document.getElementById("input-error-id")
     newErrorMessage.classList.remove("hide")
-    
-
   }
-
-
 }
-// function createErrorMessage (){
-//     let textError = ("Vous vous êtes trompé dans votre saisie")
-//     let newError = document.createElement("div")
-//     let newMessage = document.createElement("p")
-//     newMessage.innerText = textError
-//     newError.classList.add("error") 
 
-//     newError.appendChild(newMessage)
-
-//     let errorMessage = document.getElementById("login-form")
-//     errorMessage.appendChild(newError)
-//   }
 
 
 
