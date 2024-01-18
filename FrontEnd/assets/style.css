@@ -266,6 +266,7 @@ footer {
 	padding: 20px;
 	background-color: #FFF;
 	border-radius: 10px;
+	position: relative;
 }
 
 .works-modal > img {
@@ -293,7 +294,7 @@ footer {
 
 #gallery-modal {
 	display: grid;
-	grid-template-columns: 19% 18% 18% 18% 19%;
+	grid-template-columns: 19% 19% 19% 19% 19%;
     grid-column-gap: 10px;
     grid-row-gap: 20px;
 	padding-top: 40px;
@@ -306,17 +307,67 @@ footer {
 	font-family: 'Work Sans';
 	font-weight: 400;
     font-size: 26px;
-    padding-top: 30px;
+    padding-top: 50px;
 }
-
 .close {
-	display: flex;
-	
+	position: absolute;
+    right: 20px;
+    border: none;
+    background-color: white;
+}
+.works-modal {
+	position: relative ;
 }
 .delete-icone {
-
+	position: relative;
+	width: 10px;
+	height: 11px;
+	color: #FFF;
+	
+}
+.button-delete {
+	position: absolute;
+	top: 5px;
+    right: 5px;
+    padding: 3px;
+	background-color: black;
+    border-radius: 4px;
+    width: 21px;
+    height: 23px;
+	border: none;
+}
+hr {
+	border: none;
+  border-top: 1px solid #B3B3B3;
+  color: #333;
+  text-align: center;
+  height: 5px;
+  width: 80%;
 }
 
+hr::after {
+  background: #fff;
+  content: '';
+  padding: 0 4px;
+  position: relative;
+  top: -20px;
+}
+#barre {
+	position: relative;
+    top: 40px;
+}
+#add-work {
+	position: relative;
+    bottom: -83px;
+    left: 32%;
+	width: 237px;
+    height: 36px;
+    border-radius: 26px;
+	background-color: #1D6154;
+    color: white;
+    border: 1px solid #1D6154;
+	font-size: 14px;
+}
 .hide {
 	display: none;
 }

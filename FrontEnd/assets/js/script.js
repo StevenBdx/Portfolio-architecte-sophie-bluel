@@ -64,17 +64,19 @@ function createFigure(project, displayTitle) {
         gallery.appendChild(newWorks)
     }else {
         let galleryModal = document.getElementById('gallery-modal')
+        let buttonfordelete = document.createElement('button')                     //creation button poubelle//
+        buttonfordelete.classList.add('button-delete') 
         let carbageIcon = document.createElement('i')                             //creation image poubelle//
         carbageIcon.classList.add('fa-solid', 'fa-trash-can', 'delete-icone')
         carbageIcon.dataset.projectId = project.id
-        newWorks.appendChild(carbageIcon)
+        buttonfordelete.appendChild(carbageIcon)
+        newWorks.appendChild(buttonfordelete)
         newWorks.classList.add("works-modal")
         galleryModal.appendChild(newWorks)
     }
     
 
 }
-
 
 //generer les bouttons filtres//
 function createFilters(allCategories){
