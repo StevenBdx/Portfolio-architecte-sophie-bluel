@@ -356,7 +356,7 @@ hr::after {
 	position: relative;
     top: 40px;
 }
-#add-work {
+.add-work {
 	position: relative;
     bottom: -83px;
     left: 32%;
@@ -372,6 +372,15 @@ hr::after {
 	display: none;
 }
 
+/* partie de css pour Modal de validation*/
 
+.add-photo {
+	display: flex;
+}
+
+.icon-foradd {
+	width: 76px;
+	height: 76px;
+}
 
 

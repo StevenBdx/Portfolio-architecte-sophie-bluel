@@ -155,6 +155,18 @@ let openModal = async function (e) {
    
 }
 
+let modalAddPhoto = function (e) {
+    e.preventDefault()
+    let target = document.querySelector(e.target.getAttribute("href"))
+    target.style.display = null
+    target.removeAttribute('aria-hidden')
+    target.setAttribute('aria-modal', 'true')
+    modal = target
+    modal.addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
+    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+}
+
 let closeModal = function (e) {
     e.preventDefault()
     modal.style.display = 'none'
@@ -172,5 +184,10 @@ let stopPropagation = function (e) {
 
 document.querySelectorAll('.js-modal').forEach(a => {
     a.addEventListener('click', openModal)
+})
+
+
+document.querySelectorAll('.add-work').forEach(a => {
+    a.addEventListener('click', modalAddPhoto)
 })
 

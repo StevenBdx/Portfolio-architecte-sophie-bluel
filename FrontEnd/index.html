@@ -52,21 +52,51 @@
 			<div class="modif-mode">
 				<h2>Mes Projets</h2>
 				<div class="modif-text hide">
-				<img src="./assets/icons/Vector.png" alt="édition">
-				<a href="#modal1" class="js-modal">Modifier</a>
+					<img src="./assets/icons/Vector.png" alt="édition">
+					<a href="#modal1" class="js-modal">Modifier</a>
 				</div>
 			</div>
 			<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
 				<div class="modal-wrapper js-modal-stop">
 					<button type="button" class="js-modal-close close">
 						<i class="fa-solid fa-xmark"></i>
-				</button>
+					</button>
 					<p class="title-modal">galerie photos</p>
 					<div id="gallery-modal"></div>
-					<hr id="barre"></hr>
-					<button id="add-work">Ajouter une photo</button>
+					<hr id="barre">
+					</hr>
+					<a href="#modal2" class="add-work">Ajouter une photo</a>
 				</div>
 			</aside>
+											<!-- modale pour ajout de photo -->
+			<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
+				<div class= "modal-wrapper js-modal-stop">
+					<button type="button" class="js-modal-close close">
+						<i class="fa-solid fa-xmark"></i>
+					</button>
+					<p class="title-modal">Ajout photo</p>
+					<div id="Add-photo-frame">
+						<img class="icon-foradd" src="./assets/icons/picture-svgrepo-com1.png" alt="image">
+						<button class="add-photo">+ ajouter photo</button>
+						<p>jpg,png : 4mo max</p>
+					</div>
+					<label for="name">Titre</label>
+					<input type="text" id="name" name="name" required minlength="1" maxlength="30" size="10" />
+					<div>
+					<label for="categories-select">Catégories</label>
+					<select name="categories" id="categories-select">
+						<option value="">--Please choose an option--</option>
+						<option value="objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="hotels & restaurants">Hotels & restaurants</option>
+					</select>
+				</div>
+					<hr id="barre">
+					</hr>
+					<button id="add-work">Valider</button>
+				</div>
+			</aside>
+														<!-- fin de modal d'ajout photo -->
 			<div class="filters-container">
 			</div>
 			<div class="gallery">
