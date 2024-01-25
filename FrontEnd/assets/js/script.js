@@ -65,14 +65,17 @@ function createFigure(project, displayTitle) {
     }else {
         let galleryModal = document.getElementById('gallery-modal')
         let buttonfordelete = document.createElement('button')                     //creation button poubelle//
-        buttonfordelete.classList.add('button-delete') 
+        buttonfordelete.classList.add('button-delete')
+        buttonfordelete.type = 'button'
         let carbageIcon = document.createElement('i')                             //creation image poubelle//
         carbageIcon.classList.add('fa-solid', 'fa-trash-can', 'delete-icone')
-        carbageIcon.dataset.projectId = project.id
+        buttonfordelete.dataset.projectId = project.id
         buttonfordelete.appendChild(carbageIcon)
+        buttonfordelete.addEventListener("click", deleteWorkEvent)
         newWorks.appendChild(buttonfordelete)
         newWorks.classList.add("works-modal")
         galleryModal.appendChild(newWorks)
+
     }
     
 
@@ -126,18 +129,13 @@ function applyFilters(){
 
 }
 
-let modal = null
+let modal = document.getElementById("myModal")
+let btnModif = document.querySelector(".js-modal")
+let spanClose = document.getElementsByClassName("close")[0]
 
-let openModal = async function (e) {
-    e.preventDefault()
-    let target = document.querySelector(e.target.getAttribute("href"))
-    target.style.display = null
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal', 'true')
-    modal = target
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+// When the user clicks the button, open the modal
+btnModif.onclick = async function() {
+    modal.style.display = "flex"
     let galleryModal = document.getElementById('gallery-modal')
     if (galleryModal.children.length === 0){
         let allCategories = await getAllCategories()
@@ -151,43 +149,98 @@ let openModal = async function (e) {
     }
     createWorks(allProjects,allCategories)
     }
-   
-   
+}
+// When the user clicks on <span> (x), close the modal
+spanClose.onclick = function() {
+    modal.style.display = "none"
 }
 
-let modalAddPhoto = function (e) {
-    e.preventDefault()
-    let target = document.querySelector(e.target.getAttribute("href"))
-    target.style.display = null
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal', 'true')
-    modal = target
-    modal.addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').addEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+	// When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none" 
+        }
+    }
+
+// targeting elements of modal
+let createBtn = document.getElementById("create-btn")
+let innerGallery = document.getElementById("inner-gallery")
+let innerForm = document.getElementById("inner-form")
+let returnGallery = document.getElementById("return-gallery")
+let createWork = document.getElementById("create-work")
+let formName = document.getElementById("name")
+
+
+createBtn.addEventListener("click", function() {
+    innerGallery.classList.add("hide")
+    innerForm.classList.remove("hide")
+});  
+
+returnGallery.addEventListener("click", function() {
+    innerGallery.classList.remove("hide")
+    innerForm.classList.add("hide")
+});
+
+
+createWork.addEventListener("submit", async function() {
+    let image = document.querySelector("#insert-image").files[0]
+    let title = document.getElementById("name").value 
+    let category = document.getElementById("categories-select").value
+    postWork(image, title, category)
+}); 
+
+async function postWork(image, title, category) {
+    let postToken = localStorage.getItem("token");
+    let formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("category", parseInt(category));
+    const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            "Authorization": 'Bearer ' + postToken,
+        },
+        body: formData,
+    });
+
+    if (response.status === 201) {
+        
+        //recuperer les deux gallery
+        //se servir de la reponse pour construire les figures de la gallery
+        //ajouter en enfant les figures dans chacune des gallery
+        //returnGallery.click()
+    }
+
+    console.log(response.json());
 }
 
-let closeModal = function (e) {
-    e.preventDefault()
-    modal.style.display = 'none'
-    modal.setAttribute('aria-hidden', 'true')
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
-    modal = null
+// creation function for delete works
+const deleteWorkEvent = function(event) {
+    event.stopPropagation()
+    const targetId = event.target.getAttribute("data-project-id")
+    console.log(targetId)
+    deleteWork(targetId)
+}; 
+
+async function deleteWork(id) {
+    let postToken = localStorage.getItem("token");
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE", 
+        headers: {
+            "Authorization": 'Bearer ' + postToken,
+        },         
+    });
+
+    if (response.status === 200) {
+        
+        //recuperer les deux gallery
+        //se servir de la reponse pour construire les figures de la gallery
+        //ajouter en enfant les figures dans chacune des gallery
+        //returnGallery.click()
+    }
+
+
 }
 
-let stopPropagation = function (e) {
-    e.stopPropagation()
-}
 
-document.querySelectorAll('.js-modal').forEach(a => {
-    a.addEventListener('click', openModal)
-})
-
-
-document.querySelectorAll('.add-work').forEach(a => {
-    a.addEventListener('click', modalAddPhoto)
-})
 
