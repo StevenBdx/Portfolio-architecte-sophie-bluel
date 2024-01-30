@@ -268,6 +268,9 @@ footer {
 	border-radius: 10px;
 	position: relative;
 }
+#modal-body {
+
+}
 
 .works-modal > img {
 	height: 120px;
@@ -324,9 +327,10 @@ footer {
 }
 .icon-return {
 	color: #aaaaaa;
-	float: left;
 	font-size: 24px;
 	font-weight: bold;
+	position: absolute;
+	left: 25px;
 }
 .icon-return:hover,
 .icon-return:focus {
@@ -375,6 +379,9 @@ hr::after {
 	position: relative;
     top: 40px;
 }
+.barre-two {
+	width: 465px;
+}
 .add-work {
 	position: relative;
     bottom: -83px;
@@ -387,20 +394,50 @@ hr::after {
     border: 1px solid #1D6154;
 	font-size: 14px;
 }
+.valid-work {
+	position: relative;
+    bottom: -90px;
+	width: 237px;
+    height: 36px;
+    border-radius: 26px;
+	background-color: #1D6154;
+    color: white;
+    border: 1px solid #1D6154;
+	font-size: 14px;
+}
 .hide {
 	display: none;
 }
+.show {
+	display: flex;
+}
 
 /* partie de css pour Modal de validation*/
-
+#insert-image {
+	display: none;
+}
+.label-image {
+	border-radius: 26px;
+	padding: 10px 25px 10px 25px;
+	background-color: #CBD6DC;
+	font-family: 'Work Sans';
+	color: #306685;
+	margin-top: 10px;
+}
 .add-photo {
 	display: flex;
-	width: 173px;
+	width: 100px;
     border-radius: 26px;
     align-items: center;
     justify-content: center;
-    height: 36px;
+    height: 15px;
 	font-family: 'Work Sans';
+	padding: 10px 20px; /* Ajustez la taille de la pilule selon vos besoins */
+    border: 2px solid #3498db; /* Couleur de la bordure */
+    border-radius: 25px; /* Valeur pour créer une forme pilule */
+    background-color: #3498db; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    cursor: pointer;
 }
 
 .icon-foradd {
@@ -408,43 +445,56 @@ hr::after {
 	height: 76px;
 }
 #Add-photo-frame {
-	height: 169px;
+	height: 150px;
     width: 450px;
 	background-color: #E8F1F6;
     margin-top: 36px;
-	display: grid;
+	margin-bottom: 20px;
+	display: flex;
 	justify-content: center;
-	margin: 20px;
 }
 #inner-form {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center; 
 }
 
 .center-content {
-    display: flex;
+    
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center; 
+	padding-top: 15px;
+	padding-bottom: 30px;
 }
 #create-work {
-	width: 420px;
+	width: 455px;
 }
 
 label {
-    text-align: left;
-    margin-bottom: 5px; 
+	display: flex;
+	margin-bottom: 10px;
 }
+
 #name {
-	width: 450px;
+	width: 435px;
     height: 40px;
+	box-shadow: 0px 0px 8px -1px #cfcece;
+	font-family: 'Work Sans';
+	font-size: 16px;
+	padding-left: 20px;
+	border: none;
+}
+.category-content {
+	padding-top: 20px;
 }
 #categories-select {
 	width: 460px;
     height: 50px;
+	box-shadow: 0px 0px 8px -1px #cfcece;
+	font-family: 'Work Sans';
+	font-size: 16px;
+	padding-left: 20px;
+	border: none;
 }
 

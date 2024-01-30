@@ -173,12 +173,13 @@ let formName = document.getElementById("name")
 
 createBtn.addEventListener("click", function() {
     innerGallery.classList.add("hide")
-    innerForm.classList.remove("hide")
+    innerForm.classList.add("show")
 });  
 
 returnGallery.addEventListener("click", function() {
     innerGallery.classList.remove("hide")
     innerForm.classList.add("hide")
+    innerForm.classList.remove("show")
 });
 
 
@@ -218,7 +219,6 @@ async function postWork(image, title, category) {
 const deleteWorkEvent = function(event) {
     event.stopPropagation()
     const targetId = event.target.getAttribute("data-project-id")
-    console.log(targetId)
     deleteWork(targetId)
 }; 
 

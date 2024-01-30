@@ -78,24 +78,25 @@
 							<h3 class="title-modal">Ajout photo</h3>
 							<div id="Add-photo-frame" class="center-content">
 								<img class="icon-foradd" src="./assets/icons/picture-svgrepo-com1.png" alt="image">
-								<input id="insert-image" type="file" class="add-photo">+ ajouter photo</input>
+								<label for="insert-image" class="label-image">+ Ajouter photo</label>
+								<input id="insert-image" type="file" class="add-photo"></input>
 								<p>jpg,png : 4mo max</p>
 							</div>
 							<form method="post" id="create-work" class="center-content">
 								<label for="name">Titre</label>
 								<input type="text" id="name" name="name" required minlength="1" maxlength="30" size="10" />
-								<div>
+								<div class="category-content">
 									<label for="categories-select" name="categories" >Catégories</label>
 									<select name="categories" id="categories-select">
-										<option value="">--Please choose an option--</option>
+										<option value=""></option>
 										<option value="1">Objets</option>
 										<option value="2">Appartements</option>
 										<option value="3">Hotels & restaurants</option>
 									</select>
 								</div>
-								<hr id="barre">
-						</hr>
-						<button type="submit" id="add-work" class="add-work">Valider</button>
+								<hr id="barre" class="barre-two">
+								</hr>
+								<button type="submit" id="add-work" class="valid-work">Valider</button>
 							</form>
 						</div>
 						
