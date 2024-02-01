@@ -445,7 +445,7 @@ hr::after {
 	height: 76px;
 }
 #Add-photo-frame {
-	height: 150px;
+	height: 190px;
     width: 450px;
 	background-color: #E8F1F6;
     margin-top: 36px;
@@ -460,12 +460,9 @@ hr::after {
 }
 
 .center-content {
-    
     flex-direction: column;
     align-items: center;
     text-align: center; 
-	padding-top: 15px;
-	padding-bottom: 30px;
 }
 #create-work {
 	width: 455px;
@@ -496,5 +493,9 @@ label {
 	font-size: 16px;
 	padding-left: 20px;
 	border: none;
+}
+.image-loaded {
+	height: 100%;
+    width: 190px;
 }
 

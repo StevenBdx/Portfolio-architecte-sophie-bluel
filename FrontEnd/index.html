@@ -76,13 +76,13 @@
 								<i id="return-gallery" class="fa-solid fa-arrow-left"></i>
 							</span>
 							<h3 class="title-modal">Ajout photo</h3>
-							<div id="Add-photo-frame" class="center-content">
-								<img class="icon-foradd" src="./assets/icons/picture-svgrepo-com1.png" alt="image">
-								<label for="insert-image" class="label-image">+ Ajouter photo</label>
-								<input id="insert-image" type="file" class="add-photo"></input>
-								<p>jpg,png : 4mo max</p>
-							</div>
-							<form method="post" id="create-work" class="center-content">
+							<form id="create-work" class="center-content">
+								<div id="Add-photo-frame" class="center-content">
+									<img id="image-preview" class="icon-foradd" src="./assets/icons/picture-svgrepo-com1.png" alt="image">
+									<label id="input-image" for="insert-image" class="label-image">+ Ajouter photo</label>
+									<input id="insert-image" type="file" class="add-photo"></input>
+									<p id="format">jpg,png : 4mo max</p>
+								</div>
 								<label for="name">Titre</label>
 								<input type="text" id="name" name="name" required minlength="1" maxlength="30" size="10" />
 								<div class="category-content">

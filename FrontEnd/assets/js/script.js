@@ -12,6 +12,7 @@ async function getAllCategories() {
 }
 
 
+
 document.addEventListener("DOMContentLoaded", async () => {
     let allCategories = await getAllCategories()
     let allProjects = await getAllProjects()
@@ -182,15 +183,12 @@ returnGallery.addEventListener("click", function() {
     innerForm.classList.remove("show")
 });
 
-
-createWork.addEventListener("submit", async function() {
+//target form on modal 2
+createWork.addEventListener("submit", async function(e) {
+    e.preventDefault()
     let image = document.querySelector("#insert-image").files[0]
     let title = document.getElementById("name").value 
     let category = document.getElementById("categories-select").value
-    postWork(image, title, category)
-}); 
-
-async function postWork(image, title, category) {
     let postToken = localStorage.getItem("token");
     let formData = new FormData();
     formData.append("image", image);
@@ -204,16 +202,13 @@ async function postWork(image, title, category) {
         body: formData,
     });
 
-    if (response.status === 201) {
+    if (response.ok) {
         
-        //recuperer les deux gallery
-        //se servir de la reponse pour construire les figures de la gallery
-        //ajouter en enfant les figures dans chacune des gallery
-        //returnGallery.click()
+            returnGallery.click()
     }
+}); 
 
-    console.log(response.json());
-}
+
 
 // creation function for delete works
 const deleteWorkEvent = function(event) {
@@ -231,16 +226,48 @@ async function deleteWork(id) {
         },         
     });
 
-    if (response.status === 200) {
-        
-        //recuperer les deux gallery
-        //se servir de la reponse pour construire les figures de la gallery
-        //ajouter en enfant les figures dans chacune des gallery
-        //returnGallery.click()
+    if (response.ok) {
+        let gallery = document.querySelector(".gallery")
+        let galleryModal = document.getElementById("gallery-modal")
+        Array.from(gallery.children).forEach((item) => {
+            if(id === item.dataset.projectId){  
+                item.remove()
+            }
+        })
+        Array.from(galleryModal.children).forEach((item) => {
+            if(id === item.dataset.projectId){
+                item.remove()
+            }
+        })  
     }
-
-
 }
+//function for file for display when u select him//
+document.addEventListener("DOMContentLoaded", () => {
+    const inputImage = document.getElementById("insert-image")
+    const imagePreview = document.getElementById("image-preview")
+    const textFormat = document.getElementById("format")
+    const inputLabel = document.getElementById("input-image")
+  
+    inputImage.addEventListener("change", (e) => {
+      const file = e.target.files[0]
+  
+      if (file) {
+        const reader = new FileReader()
+  
+        reader.onload = function (e) {
+          imagePreview.src = e.target.result
+          imagePreview.classList.add("image-loaded")
+          textFormat.classList.add("hide")
+          inputLabel.classList.add("hide")
+        };
+  
+        reader.readAsDataURL(file)
+      } else {
+        // Réinitialise l'aperçu si aucun fichier n'est sélectionné
+        imagePreview.src = ""
+      }
+    });
+  });
 
 
 
