@@ -203,8 +203,23 @@ createWork.addEventListener("submit", async function(e) {
     });
 
     if (response.ok) {
-        
-            returnGallery.click()
+        let gallery = document.querySelector(".gallery")
+        let galleryModal = document.getElementById("gallery-modal")
+        Array.from(gallery).forEach((item) => {
+            let id = gallery.dataset.projectId
+            if(id === item.dataset.projectId){  
+                item.append()
+            }
+        })
+        Array.from(galleryModal).forEach((item) => {
+            let id = galleryModal.dataset.projectId
+            if(id === item.dataset.projectId){
+                item.append()
+            }
+        }) 
+        const url = location.protocol + '//' + location.host + '/FrontEnd/index.html'
+        location.href = url
+            
     }
 }); 
 
