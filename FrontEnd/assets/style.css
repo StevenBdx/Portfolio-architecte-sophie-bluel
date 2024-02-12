@@ -268,9 +268,6 @@ footer {
 	border-radius: 10px;
 	position: relative;
 }
-#modal-body {
-
-}
 
 .works-modal > img {
 	height: 120px;
@@ -396,7 +393,7 @@ hr::after {
 }
 .valid-work {
 	position: relative;
-    bottom: -90px;
+    bottom: -115px;
 	width: 237px;
     height: 36px;
     border-radius: 26px;
@@ -404,6 +401,7 @@ hr::after {
     color: white;
     border: 1px solid #1D6154;
 	font-size: 14px;
+	opacity: 0.33;
 }
 .hide {
 	display: none;
@@ -498,4 +496,16 @@ label {
 	height: 100%;
     width: 190px;
 }
+#error {
+	margin-top: 20px;
+    color: red;
+    border: 1px solid red;
+    border-radius: 20px;
+    padding: 10px;
+    width: 220px;
+}
+.opacity-valid {
+	opacity: 1;
+}
+
 

@@ -45,7 +45,16 @@ document.addEventListener("DOMContentLoaded", async () => {
      
 })
 
-//je creer mes balises for works et je le lie aux parents/enfants //
+//je creer mes balises for works et je le lie aux parents/enfants
+//project : contient un tableau avec les données du projet.
+/*exemple : {
+  "id": 0,
+  "title": "string",
+  "imageUrl": "string",
+  "categoryId": "string",
+  "userId": 0
+}*/
+//displaytilte : est un booleen : true : ajoute l'element a la galerie de la page, false ajoute l'element a la galerie de la modale.
 function createFigure(project, displayTitle) {
     let newWorks = document.createElement("figure")
     let newPicture = document.createElement("img")
@@ -70,15 +79,14 @@ function createFigure(project, displayTitle) {
         buttonfordelete.type = 'button'
         let carbageIcon = document.createElement('i')                             //creation image poubelle//
         carbageIcon.classList.add('fa-solid', 'fa-trash-can', 'delete-icone')
+        carbageIcon.dataset.projectId = project.id
         buttonfordelete.dataset.projectId = project.id
         buttonfordelete.appendChild(carbageIcon)
         buttonfordelete.addEventListener("click", deleteWorkEvent)
         newWorks.appendChild(buttonfordelete)
         newWorks.classList.add("works-modal")
         galleryModal.appendChild(newWorks)
-
     }
-    
 
 }
 
@@ -169,7 +177,7 @@ let innerGallery = document.getElementById("inner-gallery")
 let innerForm = document.getElementById("inner-form")
 let returnGallery = document.getElementById("return-gallery")
 let createWork = document.getElementById("create-work")
-let formName = document.getElementById("name")
+
 
 
 createBtn.addEventListener("click", function() {
@@ -183,7 +191,8 @@ returnGallery.addEventListener("click", function() {
     innerForm.classList.remove("show")
 });
 
-//target form on modal 2
+
+//create work form on modal 2
 createWork.addEventListener("submit", async function(e) {
     e.preventDefault()
     let image = document.querySelector("#insert-image").files[0]
@@ -203,26 +212,37 @@ createWork.addEventListener("submit", async function(e) {
     });
 
     if (response.ok) {
-        let gallery = document.querySelector(".gallery")
-        let galleryModal = document.getElementById("gallery-modal")
-        Array.from(gallery).forEach((item) => {
-            let id = gallery.dataset.projectId
-            if(id === item.dataset.projectId){  
-                item.append()
-            }
-        })
-        Array.from(galleryModal).forEach((item) => {
-            let id = galleryModal.dataset.projectId
-            if(id === item.dataset.projectId){
-                item.append()
-            }
-        }) 
-        const url = location.protocol + '//' + location.host + '/FrontEnd/index.html'
-        location.href = url
-            
+        let responseProject = await response.json()
+        createFigure(responseProject,true)
+        createFigure(responseProject,false)
+        document.getElementById("name").value = ''
+        document.getElementById("categories-select").value = ''
+        document.getElementById('insert-image').value = ''
+        document.getElementById("image-preview").src = './assets/icons/picture-svgrepo-com1.png'
+        document.getElementById("image-preview").classList.remove("image-loaded")
+        document.getElementById("format").classList.remove("hide")
+        document.getElementById("input-image").classList.remove("hide")
     }
 }); 
 
+document.getElementById("insert-image").addEventListener("change", checkInput)
+document.getElementById("categories-select").addEventListener("change", checkInput)
+document.getElementById("name").addEventListener("change", checkInput)
+
+function checkInput() {
+    let image = document.querySelector("#insert-image").files[0]
+    let title = document.getElementById("name").value
+    let category = document.getElementById("categories-select").value
+    let buttonValid = document.getElementById("add-work")
+    //condition for valid button
+    if(title !== '' && category !== '' && image !== ''){
+        buttonValid.disabled = false 
+        buttonValid.style.opacity = 1
+    }else {
+        buttonValid.disabled = true
+        buttonValid.style.opacity = 0.33
+    }
+}
 
 
 // creation function for delete works
@@ -280,6 +300,9 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         // Réinitialise l'aperçu si aucun fichier n'est sélectionné
         imagePreview.src = ""
+        imagePreview.classList.remove("image-loaded")
+        textFormat.classList.remove("hide")
+        inputLabel.classList.remove("hide")
       }
     });
   });

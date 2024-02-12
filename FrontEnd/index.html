@@ -80,14 +80,14 @@
 								<div id="Add-photo-frame" class="center-content">
 									<img id="image-preview" class="icon-foradd" src="./assets/icons/picture-svgrepo-com1.png" alt="image">
 									<label id="input-image" for="insert-image" class="label-image">+ Ajouter photo</label>
-									<input id="insert-image" type="file" class="add-photo"></input>
+									<input id="insert-image" type="file" name="label-input" class="add-photo"></input>
 									<p id="format">jpg,png : 4mo max</p>
 								</div>
 								<label for="name">Titre</label>
-								<input type="text" id="name" name="name" required minlength="1" maxlength="30" size="10" />
+								<input type="text" id="name" name="name" size="10"/>
 								<div class="category-content">
 									<label for="categories-select" name="categories" >Catégories</label>
-									<select name="categories" id="categories-select">
+									<select name="categories" id="categories-select" >
 										<option value=""></option>
 										<option value="1">Objets</option>
 										<option value="2">Appartements</option>
@@ -96,8 +96,9 @@
 								</div>
 								<hr id="barre" class="barre-two">
 								</hr>
-								<button type="submit" id="add-work" class="valid-work">Valider</button>
+								<button type="submit" id="add-work" class="valid-work" disabled>Valider</button>
 							</form>
+							<div id="error" class="hide">Erreur lors de votre saisie</div>
 						</div>
 						
 					</div>
