@@ -1,4 +1,4 @@
-async function getAllProjects() {
+async function getAllProjects() { //creation fonction async pour recuperer mes données
     let response = await fetch("http://localhost:5678/api/works")
     let data = await response.json()
     return data
@@ -11,16 +11,15 @@ async function getAllCategories() {
     return data
 }
 
-
-
-document.addEventListener("DOMContentLoaded", async () => {
+//quand le document est chargé , on attend la reponse et on sauvegarde dans des variables
+document.addEventListener("DOMContentLoaded", async () => { 
     let allCategories = await getAllCategories()
     let allProjects = await getAllProjects()
 
     //connection verification//
     let tokenExist = localStorage.getItem("token")
-    
-    if (tokenExist != null) {
+   
+    if (tokenExist != null) {     //conditions pour que si le token exist alors la page html sera en mode edition
     let textForModif = document.querySelector(".modif-text").classList.remove("hide")
     let editionFilter = document.querySelector(".filters-container")
     document.querySelector(".edition-mode").classList.remove("hide")
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelector(".edition-mode").classList.add("hide")
     })
     }
-    
+    //fonction qui permet d'afficher ma gallerie
     function createWorks(allProjects,allCategories){
         allProjects.map(function(project){
             createFigure(project, true)
@@ -44,17 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     applyFilters()
      
 })
-
-//je creer mes balises for works et je le lie aux parents/enfants
-//project : contient un tableau avec les données du projet.
-/*exemple : {
-  "id": 0,
-  "title": "string",
-  "imageUrl": "string",
-  "categoryId": "string",
-  "userId": 0
-}*/
-//displaytilte : est un booleen : true : ajoute l'element a la galerie de la page, false ajoute l'element a la galerie de la modale.
+//fonction qui creer tous les travaux
 function createFigure(project, displayTitle) {
     let newWorks = document.createElement("figure")
     let newPicture = document.createElement("img")
@@ -64,15 +53,14 @@ function createFigure(project, displayTitle) {
     newWorks.dataset.categoryId = project.categoryId
     newWorks.dataset.projectId = project.id
     newWorks.appendChild(newPicture)
-    
-    
-    if (displayTitle){
+   
+    if (displayTitle){//condition si le titre est afficher pour afficher la galerie sur la page index
         let newTitle = document.createElement("figcaption")
         newTitle.innerText = project.title
         newWorks.appendChild(newTitle)
         let gallery = document.querySelector(".gallery")
         gallery.appendChild(newWorks)
-    }else {
+    }else {//sinon on ajouter les travaux sans leur titre, et on ajoute l'icone pour delete les travaux dans la modale
         let galleryModal = document.getElementById('gallery-modal')
         let buttonfordelete = document.createElement('button')                     //creation button poubelle//
         buttonfordelete.classList.add('button-delete')
@@ -107,8 +95,7 @@ function createFilters(allCategories){
     });
     
 }
-
-   
+// function for filters with id category
 function applyFilters(){
     let listFilter = document.querySelectorAll(".button-filter")
     let works = document.querySelectorAll(".works-items")
@@ -124,7 +111,6 @@ function applyFilters(){
                 }
 
             }) 
-
             works.forEach((work) => {
                 let workCategoryId = work.dataset.categoryId
                 if (filterId == workCategoryId || filterId == 0){
@@ -179,12 +165,12 @@ let returnGallery = document.getElementById("return-gallery")
 let createWork = document.getElementById("create-work")
 
 
-
+//add event listener on button "Ajouter une photo" for change modal
 createBtn.addEventListener("click", function() {
     innerGallery.classList.add("hide")
     innerForm.classList.add("show")
 });  
-
+//add event listener on button "<--" for return on 'modal gallery'
 returnGallery.addEventListener("click", function() {
     innerGallery.classList.remove("hide")
     innerForm.classList.add("hide")
@@ -203,7 +189,7 @@ createWork.addEventListener("submit", async function(e) {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("category", parseInt(category));
-    const response = await fetch("http://localhost:5678/api/works", {
+    const response = await fetch("http://localhost:5678/api/works", { //request fetch for create work with token
         method: "POST",
         headers: {
             "Authorization": 'Bearer ' + postToken,
@@ -229,6 +215,7 @@ document.getElementById("insert-image").addEventListener("change", checkInput)
 document.getElementById("categories-select").addEventListener("change", checkInput)
 document.getElementById("name").addEventListener("change", checkInput)
 
+//function for check all input on form
 function checkInput() {
     let image = document.querySelector("#insert-image").files[0]
     let title = document.getElementById("name").value
@@ -252,9 +239,10 @@ const deleteWorkEvent = function(event) {
     deleteWork(targetId)
 }; 
 
+//function async for delete work 
 async function deleteWork(id) {
-    let postToken = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    let postToken = localStorage.getItem("token"); //get token
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, { //request fetch for delete with token
         method: "DELETE", 
         headers: {
             "Authorization": 'Bearer ' + postToken,
